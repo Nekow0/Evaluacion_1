@@ -24,6 +24,14 @@ public class Venta {
 	}
 	
 	
+	public Venta(String nombreUsuario, String productoComprado, String totalCompra) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.productoComprado = productoComprado;
+		this.totalCompra = totalCompra;
+	}
+
+
 	public Venta(Long id, String nombreUsuario, String productoComprado, String totalCompra) {
 		super();
 		this.id = id;

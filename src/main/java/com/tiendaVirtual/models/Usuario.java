@@ -23,6 +23,14 @@ public class Usuario {
 		super();
 	}
 	
+	public Usuario(String nombre, String apellido, String correo, String codigoPostal) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.codigoPostal = codigoPostal;
+	}
+
 	public Usuario(Long id, String nombre, String apellido, String correo, String codigoPostal) {
 		super();
 		this.id = id;

@@ -21,9 +21,6 @@
 		<form:form action="/producto/actualizar" method="POST" modelAttribute="producto">
 			<div><form:label path="nombre">Nombre: </form:label>
                 <form:input class="form-control" type="text" path="nombre" /> <br>
-                <c:if test="${errorNombre != '' }">
-                    <c:out value="${errorNombre}"/><br>
-                </c:if> 
                 </div>
                 <div> 
                     <form:label path="tipo">Tipo: </form:label>
@@ -33,12 +30,9 @@
                 <div>
                     <form:label path="precio">Precio Producto: </form:label>
                     <form:input class="form-control" type="text" path="precio" /> <br>
-                    <c:if test="${invalid != '' }">
-                        <c:out value="${invalid}"/>
-                    </c:if>
                 </div>
 			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
+                <input type="hidden" name="id" value="${producto.getId()}">
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
 		</form:form>
 	</div>

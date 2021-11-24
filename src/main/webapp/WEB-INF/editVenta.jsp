@@ -16,7 +16,7 @@
 </head>
 
 <body>
-
+    
     <div class="container">
 		<form:form action="/venta/actualizar" method="POST" modelAttribute="venta">
 			<div><form:label path="nombreUsuario">Nombre del Usuario: </form:label>
@@ -33,8 +33,8 @@
                     <form:input class="form-control" type="text" path="totalCompra" /> <br>
                 </div>
 			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
-			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
+                <input type="hidden" name="id" value="${venta.getId()}">
+			<button  class="btn btn-primary mb-3" type="submit" value="venta.getId()"> Enviar </button>
 		</form:form>
 	</div>
 

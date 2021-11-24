@@ -21,16 +21,10 @@
 		<form:form action="/usuario/actualizar" method="POST" modelAttribute="usuario">
 			<div><form:label path="nombre">Nombre: </form:label>
 			<form:input class="form-control" type="text" path="nombre" /> <br>
-			<c:if test="${errorNombre != '' }">
-				<c:out value="${errorNombre}"/><br>
-			</c:if> 
 			</div>
 			<div> 
 				<form:label path="apellido">Apellido: </form:label>
 				<form:input class="form-control" type="text" path="apellido" /> <br>
-				<c:if test="${errorApellido != '' }">
-					<c:out value="${errorApellido}"/><br>
-				</c:if> 
 			</div>
 			
 			<div>
@@ -41,12 +35,9 @@
 			<div>
 				<form:label path="codigoPostal">Codigo Postal: </form:label>
 				<form:input class="form-control" type="text" path="codigoPostal" /> <br>
-				<c:if test="${invalid != '' }">
-					<c:out value="${invalid}"/>
-				</c:if>
 			</div>
 			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
+			<input type="hidden" name="id" value="${usuario.getId()}">
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
 		</form:form>
 	</div>

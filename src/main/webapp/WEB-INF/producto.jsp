@@ -18,14 +18,14 @@
 <body>
 	
 Creacion Producto <br>
-	
+<c:if test="${error != '' }">
+	<h2><c:out value="${error}"/></h2><br>
+</c:if> 
 	<div class="container">
 		<form:form action="/producto/create" method="POST" modelAttribute="producto">
 			<div><form:label path="nombre">Nombre: </form:label>
 			<form:input class="form-control" type="text" path="nombre" /> <br>
-			<c:if test="${errorNombre != '' }">
-				<c:out value="${errorNombre}"/><br>
-			</c:if> 
+			
 			</div>
 			<div> 
 				<form:label path="tipo">Tipo: </form:label>
@@ -35,13 +35,9 @@ Creacion Producto <br>
 			<div>
 				<form:label path="precio">Precio Producto: </form:label>
 				<form:input class="form-control" type="text" path="precio" /> <br>
-				<c:if test="${invalid != '' }">
-					<c:out value="${invalid}"/>
-				</c:if>
 			</div>
-			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
-			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
+		
+			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Crear Producto </button>
 		</form:form>
 	</div>
 
@@ -63,7 +59,7 @@ Creacion Producto <br>
 				<th scope="row">${producto.getId()}</th>
 				  <td>${producto.getNombre()}</td>
 				  <td>${producto.getTipo()}</td>
-				  <td>${producto.getPrecio()}</td>
+				  <td> $ ${producto.getPrecio()}</td>
 				  <td>
 					<form action="/producto/editar">
 						<input type="hidden" name="id" value="${producto.getId()}">

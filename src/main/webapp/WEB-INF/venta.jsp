@@ -20,7 +20,9 @@
 <body>
 	
 Creacion Venta <br>
-
+<c:if test="${error != '' }">
+	<h2><c:out value="${error}"/></h2><br>
+</c:if> 
 	<div class="container">
 		<form:form action="/venta/create" method="POST" modelAttribute="venta">
 			<div><form:label path="nombreUsuario">Nombre del Usuario: </form:label>
@@ -35,13 +37,9 @@ Creacion Venta <br>
 			<div>
 				<form:label path="totalCompra">Total Compra: </form:label>
 				<form:input class="form-control" type="text" path="totalCompra" /> <br>
-				<c:if test="${invalid != '' }">
-					<c:out value="${invalid}"/>
-				</c:if>
 			</div>
 			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
-			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
+			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Guardar venta </button>
 		</form:form>
 	</div>
 

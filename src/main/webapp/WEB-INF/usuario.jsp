@@ -18,7 +18,9 @@
 <body>
 	
 Creacion Usuario <br>
-	
+<c:if test="${error != '' }">
+	<h2><c:out value="${error}"/></h2><br>
+</c:if> 
 	<div class="container">
 		<form:form action="/usuario/create" method="POST" modelAttribute="usuario">
 			<div><form:label path="nombre">Nombre: </form:label>
@@ -51,8 +53,8 @@ Creacion Usuario <br>
 				</c:if>
 			</div>
 			
-			<button  class="btn btn-warning mb-3" value="limpiar"> Limpiar </button>
-			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>
+			
+			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Crear Usuario </button>
 		</form:form>
 	</div>
 
