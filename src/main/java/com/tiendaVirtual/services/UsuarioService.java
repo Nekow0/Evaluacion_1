@@ -16,7 +16,7 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 
 	public List<Usuario> obtenerUsuarios() {
-		return usuarioRepository.findAll();
+		return usuarioRepository.findAllUsuarios();
 	}
 
 	public void insertarUsuario(@Valid Usuario usuario) {
@@ -28,6 +28,11 @@ public class UsuarioService {
 	}
 	public void eliminarUsuario(Long id) {
 		usuarioRepository.deleteById(id);
+	}
+
+	public List<Object[]> verificarCredenciales(String username, String password) {
+		return usuarioRepository.obtenerCredencialesUsuario();
+		
 	}
 	
 }

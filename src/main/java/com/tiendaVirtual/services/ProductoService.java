@@ -17,6 +17,10 @@ public class ProductoService {
 	public List<Producto> obtenerTodoLista() {
 		return productoRepository.findAll();
 	}
+	
+	public List<Producto> obtenerListaCategoria(String categoria){
+		return productoRepository.buscarProductoCategoria(categoria);
+	}
 
 	public void insertarProducto(@Valid Producto producto) {
 		productoRepository.save(producto);

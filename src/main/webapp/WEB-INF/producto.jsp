@@ -28,8 +28,8 @@ Creacion Producto <br>
 			
 			</div>
 			<div> 
-				<form:label path="tipo">Tipo: </form:label>
-				<form:input class="form-control" type="text" path="tipo" /> <br>
+				<form:label path="categoria">Categoria: </form:label>
+				<form:input class="form-control" type="text" path="categoria" /> <br>
 			</div>
 			
 			<div>
@@ -47,7 +47,7 @@ Creacion Producto <br>
 		  <tr>
 			<th scope="col">#</th>
 			<th scope="col">Nombre</th>
-			<th scope="col">Tipo</th>
+			<th scope="col">Categoria</th>
 			<th scope="col">Precio</th>
 			<th scope="col">Editar</th>
 			<th scope="col">Borrar</th>
@@ -58,7 +58,7 @@ Creacion Producto <br>
 				<tr>
 				<th scope="row">${producto.getId()}</th>
 				  <td>${producto.getNombre()}</td>
-				  <td>${producto.getTipo()}</td>
+				  <td>${producto.getCategoria()}</td>
 				  <td> $ ${producto.getPrecio()}</td>
 				  <td>
 					<form action="/producto/editar">

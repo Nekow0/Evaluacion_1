@@ -1,9 +1,12 @@
 package com.tiendaVirtual.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,31 +16,23 @@ public class Venta {
 	@Id //clave primaria o PK
 	@GeneratedValue(strategy= GenerationType.IDENTITY)//auto incrementable
 	private Long id;
-	private String nombreUsuario;
-	private String productoComprado;
-	private String totalCompra;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="producto_id")
+	private Producto producto;
+
 	//Constructores
 	
 	public Venta() {
 		super();
 	}
 	
-	
-	public Venta(String nombreUsuario, String productoComprado, String totalCompra) {
+	public Venta(Usuario usuario, Producto producto) {
 		super();
-		this.nombreUsuario = nombreUsuario;
-		this.productoComprado = productoComprado;
-		this.totalCompra = totalCompra;
-	}
-
-
-	public Venta(Long id, String nombreUsuario, String productoComprado, String totalCompra) {
-		super();
-		this.id = id;
-		this.nombreUsuario = nombreUsuario;
-		this.productoComprado = productoComprado;
-		this.totalCompra = totalCompra;
+		this.usuario = usuario;
+		this.producto = producto;
 	}
 
 	//Getter and Setters
@@ -47,23 +42,22 @@ public class Venta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNombreUsuario() {
-		return nombreUsuario;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public String getProductoComprado() {
-		return productoComprado;
+
+	public Producto getProducto() {
+		return producto;
 	}
-	public void setProductoComprado(String productoComprado) {
-		this.productoComprado = productoComprado;
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
-	public String getTotalCompra() {
-		return totalCompra;
-	}
-	public void setTotalCompra(String totalCompra) {
-		this.totalCompra = totalCompra;
-	}
+
 
 }

@@ -36,6 +36,16 @@
 				<form:label path="codigoPostal">Codigo Postal: </form:label>
 				<form:input class="form-control" type="text" path="codigoPostal" /> <br>
 			</div>
+
+			<div>
+				<form:label path="username">Usuario: </form:label>
+				<form:input class="form-control" type="text" path="username" /> <br>
+			</div>
+			
+			<div>
+				<form:label path="password">Contrasena: </form:label>
+				<form:input class="form-control" type="text" path="password" /> <br>
+			</div>
 			
 			<input type="hidden" name="id" value="${usuario.getId()}">
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Enviar </button>

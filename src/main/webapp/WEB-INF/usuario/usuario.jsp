@@ -16,7 +16,8 @@
 </head>
 
 <body>
-	
+	<jsp:include page='../template/nav_loggedIn.jsp'/>
+
 Creacion Usuario <br>
 <c:if test="${error != '' }">
 	<h2><c:out value="${error}"/></h2><br>
@@ -52,7 +53,16 @@ Creacion Usuario <br>
 					<c:out value="${invalid}"/>
 				</c:if>
 			</div>
+
+			<div>
+				<form:label path="username">Usuario: </form:label>
+				<form:input class="form-control" type="text" path="username" /> <br>
+			</div>
 			
+			<div>
+				<form:label path="password">Contrasena: </form:label>
+				<form:input class="form-control" type="text" path="password" /> <br>
+			</div>
 			
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Crear Usuario </button>
 		</form:form>
@@ -67,6 +77,8 @@ Creacion Usuario <br>
 			<th scope="col">Apellido</th>
 			<th scope="col">Correo</th>
 			<th scope="col">Codigo postal</th>
+			<th scope="col">User</th>
+			<th scope="col">Pass</th>
 			<th scope="col">Editar</th>
 			<th scope="col">Borrar</th>
 		  </tr>
@@ -79,6 +91,8 @@ Creacion Usuario <br>
 				  <td>${usuario.getApellido()}</td>
 				  <td>${usuario.getCorreo()}</td>
 				  <td>${usuario.getCodigoPostal()}</td>
+				  <td>${usuario.getUsername()}</td>
+				  <td>${usuario.getPassword()}</td>
 				  <td>
 					<form action="/usuario/editar">
 						<input type="hidden" name="id" value="${usuario.getId()}">

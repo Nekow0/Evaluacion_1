@@ -24,6 +24,9 @@ public class VentaService {
 		ventaRepository.save(venta);
 		
 	}
+	public List<Venta> listaProductos(Long id){
+		return ventaRepository.obtenerVentaProductos(id);
+	}
 
 	public Venta encontrarVenta(Long id) {
 		return ventaRepository.findById(id).get();

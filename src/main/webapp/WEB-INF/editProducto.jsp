@@ -23,8 +23,8 @@
                 <form:input class="form-control" type="text" path="nombre" /> <br>
                 </div>
                 <div> 
-                    <form:label path="tipo">Tipo: </form:label>
-                    <form:input class="form-control" type="text" path="tipo" /> <br>
+                    <form:label path="categoria">Categoria: </form:label>
+                    <form:input class="form-control" type="text" path="categoria" /> <br>
                 </div>
                 
                 <div>

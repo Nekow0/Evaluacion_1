@@ -1,6 +1,5 @@
 package com.tiendaVirtual.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,7 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tiendaVirtual.models.Usuario;
 import com.tiendaVirtual.models.Venta;
+import com.tiendaVirtual.services.ProductoService;
+import com.tiendaVirtual.services.UsuarioService;
 import com.tiendaVirtual.services.VentaService;
 
 @Controller
@@ -21,43 +23,63 @@ public class VentaController {
 	@Autowired
 	VentaService ventaService;
 	
+	@Autowired
+	ProductoService productoService;
+	@Autowired
+	UsuarioService usuarioService;
+	
+	
 	//Pagina Inicial:
 	@RequestMapping("")
-	public String venta(@ModelAttribute("venta") Venta venta, Model model) {
-		model.addAttribute("venta", new Venta());	
-		List<Venta> lista;
-		lista = ventaService.obtenerVentas();
-		if(lista.size() == 0) {
-			crearVentas();
-		}
-		model.addAttribute("listaVentas", ventaService.obtenerVentas());
-		return "venta.jsp";
+	public String venta(@RequestParam("id") Long id, @ModelAttribute("venta") Venta venta, Model model) {
+
+		Usuario usuarioActivo = usuarioService.encontrarUsuario(id);
+		model.addAttribute("usuario", usuarioActivo);	
+		List<Venta> productosUsuario= ventaService.listaProductos(id);
+		model.addAttribute("total", calcularTotal(productosUsuario));
+		model.addAttribute("listaVentas", productosUsuario);
+		
+		return "venta/venta.jsp";
 	}
 	
-	//Crear Venta
-	@RequestMapping("/create")
-	public String login(@Valid @ModelAttribute("venta") Venta venta, Model model) {
+	public Integer calcularTotal(List<Venta> ventas) {
+		Integer total = 0;
+		for(Venta venta: ventas) {
+			total = total +Integer.parseInt(venta.getProducto().getPrecio());
 			
-			if (validar(venta)) {
-				ventaService.insertarVenta(venta);
-				return  "redirect:/venta";
-			}
-			
-			model.addAttribute("error", "Error al registrar venta, campos vacios");
-			return "venta.jsp";
-	}
-	
-	public Boolean validar(Venta venta) {
-		if(venta.getNombreUsuario().isEmpty()|| venta.getProductoComprado().isEmpty() || venta.getTotalCompra().isEmpty()) {
-			return false;
 		}
-		else {
-			return true;
-		}
+		return total;
+		
 	}
+	/*
+	 * //Crear Venta
+	 * 
+	 * @RequestMapping("/create") public String
+	 * login(@Valid @ModelAttribute("venta") Venta venta, Model model) {
+	 * 
+	 * 
+	 * model.addAttribute("error", "Error al registrar venta, campos vacios");
+	 * return "venta/venta.jsp"; }
+	 */
+	/*
+	 * public void validar(Venta venta) { if(venta.getNombreUsuario().isEmpty()||
+	 * venta.getProductoComprado().isEmpty() || venta.getTotalCompra().isEmpty()) {
+	 * return false; } else { return true; } }
+	 */
 	//Eliminar Venta
+	
 	@RequestMapping("/eliminar")
 	public String eliminarVenta(@RequestParam("id") Long id) {
+		String id_usuario = ventaService.encontrarVenta(id).getUsuario().getId().toString();
+		if(ventaService.encontrarVenta(id) != null) {
+			ventaService.eliminarVenta(id);
+		}
+		return "redirect:/venta?id=" + id_usuario;
+	}
+
+	
+	@RequestMapping("/eliminarProducto")
+	public String eliminarProducto(@RequestParam("id") Long id) {
 		if(ventaService.encontrarVenta(id) != null) {
 			ventaService.eliminarVenta(id);
 		}
@@ -73,7 +95,7 @@ public class VentaController {
 		if(venta != null) {
 			
 			model.addAttribute("venta", venta);
-			return "editVenta.jsp";
+			return "venta/editVenta.jsp";
 		}
 		else {
 			return "redirect:/venta";
@@ -87,26 +109,12 @@ public class VentaController {
 		Venta existente = ventaService.encontrarVenta(id);
 		
 		
-		if(existente != null && validar(venta)) {
+		if(existente != null ) {
 			ventaService.insertarVenta(venta);
 			return "redirect:/venta";
 		}
 		return "redirect:/venta";
 	}
 	
-	public void crearVentas() {
-		ArrayList<Venta> listaVentas = new ArrayList<Venta>();
-		Venta venta1 = new Venta("User.Maria", "Alicate", "4000");
-		Venta venta2 = new Venta("User.Seb", "Alcohol Gel", "2100");
-		Venta venta3 = new Venta("User.LF", "Esmalte", "400");
-		
-		listaVentas.add(venta1);
-		listaVentas.add(venta2);
-		listaVentas.add(venta3);
-		
-		for(int i = 0; i< listaVentas.size(); i++) {
-			ventaService.insertarVenta(listaVentas.get(i));
-		}
-		
-	}
+	
 }
