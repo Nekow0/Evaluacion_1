@@ -3,6 +3,7 @@ package com.tiendaVirtual.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ public class ProductoController {
 	VentaService ventaService;
 	
 	@RequestMapping("/tienda")
-	public String tienda(@RequestParam("id") Long id, Model model) {
+	public String tienda( Model model, HttpSession session) {
+		Long id = (Long) session.getAttribute("usuario_id");
+		System.out.println("Id Usuario es: "+ id);
 		List<Producto> lista;
 		lista = productoService.obtenerTodoLista();
 		if (lista.size() == 0) {
@@ -43,22 +46,22 @@ public class ProductoController {
 	}
 	
 	@RequestMapping("/buscarCategoria")
-	public String buscarCategoria(@RequestParam("id") Long id,@RequestParam("categoria") String categoria, Model model) {
+	public String buscarCategoria(HttpSession session,@RequestParam("categoria") String categoria, Model model) {
+		//Long id = (Long) session.getAttribute("usuario_id");
 		System.out.println(categoria + "es lo que se va a buscar");
 		model.addAttribute("listaProductos", productoService.obtenerListaCategoria(categoria));
-		model.addAttribute("usuario", usuarioService.encontrarUsuario(id));
 		return "producto/verTienda.jsp";
 		
 	}
 	
 	@RequestMapping("/producto/agregar")
-	public String agregarCarrito(@RequestParam("id_producto") Long id_producto,@RequestParam("id_usuario") Long id_usuario, Model model){
-		System.out.println( id_producto + " es el id producto");
-		System.out.println( id_usuario + " es el id usuario");
-		ventaService.insertarVenta(new Venta(usuarioService.encontrarUsuario(id_usuario), productoService.encontrarProducto(id_producto) ));
+	public String agregarCarrito(@RequestParam("id_producto") Long id_producto,HttpSession session, Model model){
+
+
+		ventaService.insertarVenta(new Venta(usuarioService.encontrarUsuario((Long)session.getAttribute("usuario_id")), productoService.encontrarProducto(id_producto) ));
 		model.addAttribute("listaProductos", productoService.obtenerTodoLista());
 		
-		return "redirect:/tienda?id="+id_usuario;
+		return "redirect:/tienda";
 	}
 	// Formulario Producto
 	@RequestMapping("/producto")

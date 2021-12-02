@@ -54,14 +54,15 @@ Creacion Usuario <br>
 				</c:if>
 			</div>
 
-			<div>
-				<form:label path="username">Usuario: </form:label>
-				<form:input class="form-control" type="text" path="username" /> <br>
-			</div>
+			
 			
 			<div>
 				<form:label path="password">Contrasena: </form:label>
-				<form:input class="form-control" type="text" path="password" /> <br>
+				<form:input class="form-control" type="password" path="password" /> <br>
+			</div>
+			<div>
+				<form:label path="passwordConfirmation">Confirmar Contrasena: </form:label>
+				<form:input class="form-control" type="password" path="passwordConfirmation" /> <br>
 			</div>
 			
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Crear Usuario </button>
@@ -77,7 +78,6 @@ Creacion Usuario <br>
 			<th scope="col">Apellido</th>
 			<th scope="col">Correo</th>
 			<th scope="col">Codigo postal</th>
-			<th scope="col">User</th>
 			<th scope="col">Pass</th>
 			<th scope="col">Editar</th>
 			<th scope="col">Borrar</th>
@@ -91,7 +91,6 @@ Creacion Usuario <br>
 				  <td>${usuario.getApellido()}</td>
 				  <td>${usuario.getCorreo()}</td>
 				  <td>${usuario.getCodigoPostal()}</td>
-				  <td>${usuario.getUsername()}</td>
 				  <td>${usuario.getPassword()}</td>
 				  <td>
 					<form action="/usuario/editar">

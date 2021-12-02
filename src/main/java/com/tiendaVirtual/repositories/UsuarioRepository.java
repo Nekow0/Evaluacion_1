@@ -11,10 +11,14 @@ import com.tiendaVirtual.models.Usuario;
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario,Long> {
 	
+	Usuario findByCorreo(String correo);
+	
+	Usuario findByNombre(String nombre);
+	
 	@Query("SELECT u FROM Usuario u ")
 	List<Usuario> findAllUsuarios();
 	
-	@Query("SELECT u.username, u.password, u.id From Usuario u")
+	@Query("SELECT u.correo, u.password, u.id From Usuario u")
 	List<Object[]> obtenerCredencialesUsuario();
 	
 }

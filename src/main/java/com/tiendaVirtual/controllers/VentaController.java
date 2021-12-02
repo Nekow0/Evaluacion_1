@@ -2,6 +2,7 @@ package com.tiendaVirtual.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class VentaController {
 	
 	//Pagina Inicial:
 	@RequestMapping("")
-	public String venta(@RequestParam("id") Long id, @ModelAttribute("venta") Venta venta, Model model) {
-
+	public String venta(HttpSession session, @ModelAttribute("venta") Venta venta, Model model) {
+		Long id = (Long) session.getAttribute("usuario_id");
 		Usuario usuarioActivo = usuarioService.encontrarUsuario(id);
 		model.addAttribute("usuario", usuarioActivo);	
 		List<Venta> productosUsuario= ventaService.listaProductos(id);

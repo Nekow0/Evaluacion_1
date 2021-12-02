@@ -52,14 +52,15 @@
 				</c:if>
 			</div>
 
-			<div>
-				<form:label path="username">Usuario: </form:label>
-				<form:input class="form-control" type="text" path="username" /> <br>
-			</div>
+			
 			
 			<div>
 				<form:label path="password">Contrasena: </form:label>
-				<form:input class="form-control" type="text" path="password" /> <br>
+				<form:input class="form-control" type="password" path="password" /> <br>
+			</div>
+			<div>
+				<form:label path="passwordConfirmation">Confirmar Contrasena: </form:label>
+				<form:input class="form-control" type="password" path="passwordConfirmation" /> <br>
 			</div>
 			
 			<button  class="btn btn-primary mb-3" type="submit" value="enviar"> Crear Usuario </button>

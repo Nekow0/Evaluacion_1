@@ -12,16 +12,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<title>Tienda</title>
 </head>
 
 <body>
 	
     <jsp:include page='../template/nav_loggedIn.jsp'/>
+	
 
+	
+	
 	<div class="container">
 		
-        <h2>Bienvenid@ a la tienda</h2>
+        <h2>Bienvenid@ a la tienda <c:out value="${usuario_nombre}"/>#<c:out value="${usuario_id}"/> <i class="bi bi-bag" style="font-size: 2rem;"></i></h2>
 	<br>
 
     Buscar por categoria~
@@ -32,15 +36,14 @@
             <option value="Electronica">Electronica</option>
             <option value="Comida">Comida</option>
         </select>
-        <input type="hidden" name="id" value="${usuario.getId()}">
+        
         <button class="btn btn-dark mb-3" type="submit" >Buscar por categoria</button>
     </form>
 
     <br>
-        <form action="/venta">
-            <input type="hidden" name="id" value="${usuario.getId()}">
-            <button class="btn btn-dark mb-3" type="submit">Ver mi carrito!</button>
-          </form>
+	<a href="/venta"><button class="btn btn-dark mb-3" type="submit" > Ver mi carrito! </button>
+	</a>
+
           <br>
 	<table class="table">
 		<thead>

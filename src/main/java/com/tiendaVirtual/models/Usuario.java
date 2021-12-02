@@ -9,10 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="usuarios")
@@ -25,10 +29,24 @@ public class Usuario {
 	private String correo;
 	private String codigoPostal;
 	
-	private String username;
 	private String password;
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	@Transient
+	private String passwordConfirmation;
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private List<Venta> ventas;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	/*@JoinTable{
+		name="usuarios_roles",
+		joinColumns = @JoinColumn(name="usuario_id"),
+		inverseJoinColumns = @JoinColumn(name="role_id")
+	}*/
+	@JoinTable(
+		name="usuarios_roles",
+		joinColumns = @JoinColumn(name="usuario_id"),
+		inverseJoinColumns = @JoinColumn(name="role_id")
+	)
+	private List<Role> roles;
 	
 	@Column(updatable = false)
 	private Date createdAt;
@@ -38,14 +56,17 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
-	
-	
-	public Usuario(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
 
+	public Usuario(String nombre, String apellido, String correo, String codigoPostal, String password,
+			String passwordConfirmation) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.codigoPostal = codigoPostal;
+		this.password = password;
+		this.passwordConfirmation = passwordConfirmation;
+	}
 
 	public Usuario(String nombre, String apellido, String correo, String codigoPostal) {
 		super();
@@ -56,14 +77,13 @@ public class Usuario {
 	}
 
 	
-	public Usuario(String nombre, String apellido, String correo, String codigoPostal, String username,
+	public Usuario(String nombre, String apellido, String correo, String codigoPostal, 
 			String password) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.correo = correo;
 		this.codigoPostal = codigoPostal;
-		this.username = username;
 		this.password = password;
 	}
 
@@ -99,12 +119,12 @@ public class Usuario {
 		this.codigoPostal = codigoPostal;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
 	}
 
 	public String getPassword() {
@@ -148,6 +168,14 @@ public class Usuario {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updatedAt = new Date();
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	
